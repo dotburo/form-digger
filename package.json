@@ -1,6 +1,6 @@
 {
     "name": "@dotburo/form-digger",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Generic HTML form interpretation and server fetch with pagination",
     "homepage": "https://github.com/dotburo/form-digger",
     "author": "dotburo <code@dotburo.org> (https://dotburo.org)",
