@@ -19,7 +19,7 @@
         "test": "tests"
     },
     "scripts": {
-        "demo": "cp ./dist/form-digger-min.js ./dist/paginator-min.js ./demo",
+        "demo": "cp ./dist/form-digger-min.js ./dist/paginator-min.js ./docs",
         "dev": "rollup -c --environment BUILD:development",
         "prod": "rollup -c --environment BUILD:production && npm run demo",
         "test": "echo \"Error: no test specified\" && exit 1",
