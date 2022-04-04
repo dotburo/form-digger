@@ -1,6 +1,6 @@
 # Form Digger
 
-Generic form parser and server fetch with optional pagination of results.
+Generic form parser and server fetch with optional pagination of results. Vanilla Javascript.
 
 ## Features
 * Sets query parameters automatically from named form inputs
@@ -45,7 +45,7 @@ Function to render the result list wrapper. Default: ``html => `<ul>${html}</ul>
 ### renderItem
 Function to render each item. Default: ``item => `<li>${JSON.stringify(item)}</li>``
 ### responseItemsKey:
-Property name in the server response which contains the results. `Default: 'data'`
+Property name in the server response which contains the results. Works with the default Laravel `data` property. `Default: 'data'`
 ### paginator
 Optional Paginator instance, see `src/Paginator`. Default: `null`
 ### eventName
@@ -57,11 +57,11 @@ Delay server fetching by the number of milliseconds.
 ### data-min-length="number"
 Minimum number of characters from which server requests will be made.
 
-## Paginator options:
+## Paginator options
 ### elements
 HTML elements in which to render the pagination menu. Default: `[]`
 ### responseKeys
-Map of key names of the server response properties required for the page calculation. Works with the default Laravel keys. Default:  
+Map of key names of the server response properties required for the pages calculation. Works with the default Laravel pagination properties. Default:  
 ```
 {
     current: 'current_page',
