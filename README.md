@@ -1,5 +1,9 @@
 # Form Digger
 
+![](https://img.shields.io/github/tag/dotburo/form-digger.svg?label=version&style=flat)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a9396205396f288f62e7/maintainability)](https://codeclimate.com/github/dotburo/form-digger/maintainability)
+![npm](https://img.shields.io/npm/dw/@dotburo/form-digger)
+
 Generic form parser and server fetch with optional pagination of results. Vanilla Javascript.  
 <br>
 <a href="https://dotburo.github.io/form-digger/" target="_blank" rel="noopener">&rsaquo;_&thinsp;demo</a>
@@ -10,7 +14,7 @@ Generic form parser and server fetch with optional pagination of results. Vanill
 * Make automatic GET requests on each form `change` and `input` event
 * Included but optional pagination of results
 
-## Installation
+## Install with [npm](https://www.npmjs.com/package/@dotburo/form-digger)
 ```
 npm i @dotburo/form-digger
 ```
