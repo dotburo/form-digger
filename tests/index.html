@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Form digger</title>
+</head>
+<body class="h-100">
+<div class="h-100 d-flex justify-content-center">
+    <div class="w-50">
+        <form method="GET" action="#" novalidate class="mt-5">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input type="text" placeholder="What are you looking for?" class="form-control" name="q" autocomplete="off">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <select name="criteria_1" autocomplete="off" class="custom-select">
+                        <option value="opt11">Criterion 1.1</option>
+                        <option value="opt12">Criterion 1.2</option>
+                        <option value="opt13">Criterion 1.3</option>
+                        <option value="opt14">Criterion 1.4</option>
+                        <option value="opt15">Criterion 1.5</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select name="criteria_2" autocomplete="off" class="custom-select">
+                        <option value="opt21">Criterion 2.1</option>
+                        <option value="opt21">Criterion 2.1</option>
+                        <option value="opt22">Criterion 2.2</option>
+                        <option value="opt23">Criterion 2.3</option>
+                        <option value="opt24">Criterion 2.4</option>
+                        <option value="opt25">Criterion 2.5</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="mt-5">Search results:</div>
+        <div class="pagination d-flex justify-content-end"></div>
+        <div class="results"></div>
+        <div class="pagination d-flex justify-content-end"></div>
+    </div>
+</div>
+<script src="../dist/paginator-min.js"></script>
+<script src="../dist/form-digger-min.js"></script>
+<script>
+    // Overwritten for the demo, returns a random number of results
+    FormDigger.prototype._fetchData = () => {
+        const resultsCount = Math.round(Math.random() * 20),
+            results = [];
+
+        for (let i = 0; i < resultsCount; i++) {
+            results.push({result: i});
+        }
+
+        return Promise.resolve({
+            current_page: 1,
+            total: 20,
+            per_page: resultsCount,
+            data: results
+        })
+    }
+
+    const paginator = new Paginator({
+        elements: document.querySelectorAll('.pagination'),
+    });
+
+    const digger = new FormDigger({
+        baseUri: '/api/v1/items/search',
+        form: document.querySelector('form'),
+        results: document.querySelector('.results'),
+        paginator: paginator,
+        renderEmptyList: parameters => `<div>No items found for: ${JSON.stringify(parameters)}</div>`,
+        renderItemList: html => `<ul class="pl-0">${html}</ul>`,
+        renderItem: item => `<li class="d-block mb-1">Item: ${JSON.stringify(item)}</li>`,
+    });
+</script>
+</body>
+</html>

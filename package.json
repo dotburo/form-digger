@@ -1,0 +1,35 @@
+{
+    "name": "@dotburo/form-digger",
+    "version": "1.0.0",
+    "description": "Generic HTML form interpretation and server fetch with pagination",
+    "homepage": "https://github.com/dotburo/form-digger",
+    "author": "dotburo <code@dotburo.org> (https://dotburo.org)",
+    "license": "GPL-3.0+",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dotburo/form-digger.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dotburo/form-digger/issues"
+    },
+    "module": "dist/form-digger.js",
+    "browser": "dist/form-digger.min.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "dev": "rollup -c --environment BUILD:development",
+        "prod": "rollup -c --environment BUILD:production",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "rollup -c -w"
+    },
+    "devDependencies": {
+        "@rollup/plugin-eslint": "^8.0.1",
+        "@rollup/plugin-node-resolve": "^13.1.3",
+        "rollup": "^2.69",
+        "rollup-plugin-terser": "^7.0.2"
+    },
+    "dependencies": {
+        "lodash-es": "^4.17.21"
+    }
+}
