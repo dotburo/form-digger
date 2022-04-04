@@ -3,7 +3,13 @@ import {terser} from 'rollup-plugin-terser';
 import eslint from '@rollup/plugin-eslint';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 
-const production = process.env.BUILD === 'production';
+const production = process.env.BUILD === 'production',
+    banner = `/*! ${pkg.name} ${pkg.version} | ${pkg.author} !*/`,
+    plugins = [
+        nodeResolve(),
+        !production ? null : eslint(),
+        !production ? null : terser()
+    ].filter(p => p);
 
 export default [
     {
@@ -13,22 +19,18 @@ export default [
                 file: 'dist/form-digger.js',
                 format: 'es',
                 name: 'FormDigger',
-                banner: `/*! ${pkg.name} ${pkg.version} | ${pkg.author} !*/`,
+                banner: banner,
                 sourcemap: true
             },
             {
                 file: 'dist/form-digger-min.js',
                 format: 'iife',
                 name: 'FormDigger',
-                banner: `/*! ${pkg.name} ${pkg.version} | ${pkg.author} !*/`,
+                banner: banner,
                 sourcemap: true
             }
         ],
-        plugins: [
-            nodeResolve(),
-            !production ? null : eslint(),
-            !production ? null : terser()
-        ].filter(p => p)
+        plugins: plugins
     },
     {
         input: 'src/Paginator.js',
@@ -37,14 +39,10 @@ export default [
                 file: 'dist/paginator-min.js',
                 format: 'iife',
                 name: 'Paginator',
-                banner: `/*! ${pkg.name} ${pkg.version} | ${pkg.author} !*/`,
+                banner: banner,
                 sourcemap: true
             }
         ],
-        plugins: [
-            nodeResolve(),
-            !production ? null : eslint(),
-            !production ? null : terser()
-        ].filter(p => p)
+        plugins: plugins
     }
 ];

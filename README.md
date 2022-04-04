@@ -1,6 +1,8 @@
 # Form Digger
 
 Generic form parser and server fetch with optional pagination of results. Vanilla Javascript.
+<br>
+<a href="https://dotburo.github.io/form-digger/" target="_blank" rel="noopener">&rsaquo;_&thinsp;demo</a>
 
 ## Features
 * Sets query parameters automatically from named form inputs
