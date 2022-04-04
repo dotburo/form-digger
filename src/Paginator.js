@@ -52,7 +52,7 @@ Paginator.prototype.render = function (response) {
 
     if (response.total <= 0) return;
 
-    let totalPages = Math.round(response.total / response.perPage),
+    let totalPages = Math.round(response.total / response.perPage) || 1,
         pages = paginate(response.current, totalPages, this._options.ellipsis);
 
     pages = pages.map(index => renderItem({
