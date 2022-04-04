@@ -10,7 +10,7 @@ export default [
         input: 'src/FormDigger.js',
         output: [
             {
-                file: 'dist/FormDigger.js',
+                file: 'dist/form-digger.js',
                 format: 'es',
                 name: 'FormDigger',
                 banner: `/*! ${pkg.name} ${pkg.version} | ${pkg.author} !*/`,
