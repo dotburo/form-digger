@@ -54,14 +54,19 @@ Function to render each item. Default: ``item => `<li>${JSON.stringify(item)}</l
 Property name in the server response which contains the results. Works with the default Laravel `data` property. `Default: 'data'`
 ### paginator
 Optional Paginator instance, see `src/Paginator`. Default: `null`
-### eventName
-Custom event name triggered on each form change. Default: `onDiggerPushState`
 
 ## Field attributes
 ### data-debounce="number"
 Delay server fetching by the number of milliseconds.
 ### data-min-length="number"
 Minimum number of characters from which server requests will be made.
+
+## Events
+Events are dispatched on the form element.
+### onDiggerLoading
+Custom event at the start of the query and after rendering the results.
+### onDiggerPushState
+Custom event triggered on each form change.
 
 ## Paginator options
 ### elements

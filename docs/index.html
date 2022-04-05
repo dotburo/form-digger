@@ -49,7 +49,7 @@
                 </div>
             </div>
         </form>
-        <div class="mt-5">Search results:</div>
+        <div class="mt-5">Search results <span class="loading" style="display:none">(loading)</span>:</div>
         <div class="pagination d-flex justify-content-end"></div>
         <div class="results"></div>
         <div class="pagination d-flex justify-content-end"></div>
@@ -79,15 +79,21 @@
         elements: document.querySelectorAll('.pagination'),
     });
 
-    const digger = new FormDigger({
-        baseUri: '/api/v1/items/search',
-        form: document.querySelector('form'),
-        results: document.querySelector('.results'),
-        paginator: paginator,
-        renderEmptyList: parameters => `<div>No items found for: ${JSON.stringify(parameters)}</div>`,
-        renderItemList: html => `<ul class="pl-0">${html}</ul>`,
-        renderItem: item => `<li class="d-block mb-1">Item: ${JSON.stringify(item)}</li>`,
-    });
+    const spinner =  document.querySelector('.loading'),
+        form = document.querySelector('form'),
+        digger = new FormDigger({
+            baseUri: '/api/v1/items/search',
+            form: form,
+            results: document.querySelector('.results'),
+            paginator: paginator,
+            renderEmptyList: parameters => `<div>No items found for: ${JSON.stringify(parameters)}</div>`,
+            renderItemList: html => `<ul class="pl-0">${html}</ul>`,
+            renderItem: item => `<li class="d-block mb-1">Item: ${JSON.stringify(item)}</li>`,
+        });
+
+    form.addEventListener('onDiggerLoading', e => {
+        spinner.style.display = e.detail.state ? 'inline' : 'none';
+    }, false);
 </script>
 </body>
 </html>

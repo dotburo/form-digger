@@ -1,19 +1,21 @@
 import {debounce, get, has, merge, pickBy} from 'lodash-es';
 
-const DEFAULTS = {
-    // Required
-    baseUri: '',
-    form: null,
-    results: null,
+const
+    EVT_PUSH_STATE = 'onDiggerPushState',
+    EVT_LOADING = 'onDiggerLoading',
+    DEFAULTS = {
+        // Required
+        baseUri: '',
+        form: null,
+        results: null,
 
-    // Optional
-    responseItemsKey: 'data',
-    paginator: null,
-    eventName: 'onDiggerPushState',
-    renderEmptyList: () => '<div>No items found for these criteria</div>',
-    renderItemList: html => `<ul>${html}</ul>`,
-    renderItem: item => `<li>${JSON.stringify(item)}</li>`,
-};
+        // Optional
+        responseItemsKey: 'data',
+        paginator: null,
+        renderEmptyList: () => '<div>No items found for these criteria</div>',
+        renderItemList: html => `<ul>${html}</ul>`,
+        renderItem: item => `<li>${JSON.stringify(item)}</li>`,
+    };
 
 /**
  * Bind the form & history event and configure the initial state.
@@ -88,7 +90,7 @@ function bindEvents(options, params) {
 
     options.form.addEventListener('input', e => this._handleEvents(e, options, params), false);
 
-    document.addEventListener(options.eventName, e => this._handleHistory(e.detail, options), false);
+    options.form.addEventListener(EVT_PUSH_STATE, e => this._handleHistory(e.detail, options), false);
 
     window.addEventListener('popstate', e => this._handleHistory(e.state, options, true), false);
 
@@ -111,6 +113,8 @@ FormDigger.prototype._handleEvents = function (e, options, params) {
         func = () => this._setHistory(setParameters(params, e.target.name, e.target.value), options);
 
     if (!hasLength) return;
+
+    dispatchLoadingEvent(options, true);
 
     if (shouldWait) {
         debounce(func, +field.dataset.debounce)();
@@ -168,6 +172,8 @@ function render(response, options, parameters) {
         options.paginator.render(response);
     }
 
+    dispatchLoadingEvent(options, false);
+
     if (!items.length) {
         options.results.innerHTML = options.renderEmptyList(parameters);
         return;
@@ -196,12 +202,24 @@ FormDigger.prototype._setHistory = function(parameters, options) {
     this._lastQuery = query;
 
     const url = window.location.pathname + '?' + query,
-        event = new CustomEvent(options.eventName, {detail: {query, parameters}});
+        event = new CustomEvent(EVT_PUSH_STATE, {detail: {query, parameters}});
 
-    document.dispatchEvent(event);
+    options.form.dispatchEvent(event);
 
     window.history.pushState({query, parameters}, document.title, url);
 };
+
+/**
+ * Trigger an event at the start of the query and after rendering the results.
+ * @param {object} options
+ * @param {boolean} state
+ * @return void
+ */
+function dispatchLoadingEvent(options, state) {
+    const event = new CustomEvent(EVT_LOADING, {detail: {state}});
+
+    options.form.dispatchEvent(event);
+}
 
 /**
  * Update the fields of the search form.
