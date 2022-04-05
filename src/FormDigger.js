@@ -95,7 +95,10 @@ function bindEvents(options, params) {
     window.addEventListener('popstate', e => this._handleHistory(e.state, options, true), false);
 
     if (options.paginator) {
-        options.paginator.onChange(page => this._setHistory(setParameters(params, 'page', page), options));
+        options.paginator.onChange(page => {
+            dispatchLoadingEvent(options, true);
+            this._setHistory(setParameters(params, 'page', page), options);
+        });
     }
 }
 
